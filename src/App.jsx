@@ -1,49 +1,22 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState } from 'react';
+import TradingComponent from './TradingComponent';
+import './App.css';
 
 
-const Binance = require('binance-api-node').default;
+function App() {
+  const [isBotRunning, setIsBotRunning] = useState(false);
 
-const client = Binance({
-  apiKey: 'YOUR_API_KEY',
-  apiSecret: 'YOUR_SECRET_KEY',
-  test: true,
-  baseURL: 'https://testnet.binancefuture.com',
-});
+  const toggleBot = () => {
+    setIsBotRunning((prevIsBotRunning) => !prevIsBotRunning);
+    // Additional logic for starting or stopping the bot if needed
+  };
 
-const symbol = 'BTCUSDT';
-const quantity = 0.001;
-
-const buyMarketOrder = async () => {
-  try {
-    const order = await client.futuresMarketBuy(symbol, quantity);
-    console.log(`Bought ${order.executedQty} ${symbol} at ${order.avgPrice}`);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const sellMarketOrder = async () => {
-  try {
-    const order = await client.futuresMarketSell(symbol, quantity);
-    console.log(`Sold ${order.executedQty} ${symbol} at ${order.avgPrice}`);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const App = () => {
   return (
-    <div>
-
-      Hello This Is the begining of this code so please run well
-      <div className="container" >
-        <button className="buy" onClick={buyMarketOrder}>Buy</button>
-        <button className="sell" onClick={sellMarketOrder}>Sell</button>
-      </div>
+    <div className="App">
+      <h1>Binance Trader</h1>
+      <TradingComponent isBotRunning={isBotRunning} toggleBot={toggleBot} />
     </div>
   );
-};
+}
 
-
-export default App
+export default App;
