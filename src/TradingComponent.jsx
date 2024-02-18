@@ -13,6 +13,7 @@ const TradingComponent = ({ isBotRunning, toggleBot }) => {
   const leverage = 20;
   const quantity = 10 / leverage; // Assuming 10 USD worth of ETH at 20X leverage
 
+
   useEffect(() => {
     const fetchCurrentPrice = async () => {
       try {
@@ -31,6 +32,7 @@ const TradingComponent = ({ isBotRunning, toggleBot }) => {
       return () => clearInterval(priceFetchInterval);
     }
   }, [isBotRunning]);
+
 
   const placeOrder = async (side) => {
     try {
